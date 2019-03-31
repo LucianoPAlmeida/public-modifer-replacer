@@ -10,7 +10,7 @@ Project 423 `'public' modifier is redundant for instance method declared in a pu
 
 This is just a simple tool to remove the redundant public modifier for public extensions fixing the Xcode warnings.
 
-The project uses [SwiftSyntax](https://github.com/apple/swift-syntax) to perform a reliable substitutions of static literal strings with the CI environment variables values. 
+The project uses [SwiftSyntax](https://github.com/apple/swift-syntax).
 
 ## Installation
 
