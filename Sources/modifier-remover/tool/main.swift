@@ -16,7 +16,7 @@ func rewrite(source: Path) throws {
     
     print(contents)
     
-//    try? contents.write(to: url, atomically: true, encoding: .utf8)
+    try? contents.write(to: source.url, atomically: true, encoding: .utf8)
 }
 
 guard CommandLine.arguments.count > 1, let path = Path(CommandLine.arguments[1]) else {
@@ -27,5 +27,5 @@ var files: [Path] = try recursiveFiles(withExtension: "swift", at: path)
 
 for file in files {
     print("Rewriting \(file.basename())")
-//    try rewrite(source: file)
+    try rewrite(source: file)
 }
