@@ -1,47 +1,93 @@
 import XCTest
 import class Foundation.Bundle
+import SwiftSyntax
+import modifier_remover_core
+
 
 final class modifier_removerTests: XCTestCase {
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
+    
+    let testSource = """
+        public extension Int {
 
-        // Some of the APIs that we use below are available in macOS 10.13 and above.
-        guard #available(macOS 10.13, *) else {
-            return
+            public func f() -> Int {
+                return self * self
+            }
+
+            static public func f2() {
+            }
+
+            public static func f3() {
+            }
         }
+    """
+    
+    let expectedTestSource = """
+        public extension Int {
 
-        let fooBinary = productsDirectory.appendingPathComponent("modifier-remover")
+            func f() -> Int {
+                return self * self
+            }
 
-        let process = Process()
-        process.executableURL = fooBinary
+            static func f2() {
+            }
 
-        let pipe = Pipe()
-        process.standardOutput = pipe
-
-        try process.run()
-        process.waitUntilExit()
-
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8)
-
-        XCTAssertEqual(output, "Hello, world!\n")
-    }
-
-    /// Returns path to the built products directory.
-    var productsDirectory: URL {
-      #if os(macOS)
-        for bundle in Bundle.allBundles where bundle.bundlePath.hasSuffix(".xctest") {
-            return bundle.bundleURL.deletingLastPathComponent()
+            static func f3() {
+            }
         }
-        fatalError("couldn't find the products directory")
-      #else
-        return Bundle.main.bundleURL
-      #endif
-    }
+    """
+    
+    let testNonPublicSource = """
+        extension Int {
 
+            public func f() -> Int {
+                return self * self
+            }
+
+            static public func f2() {
+            }
+
+            public static func f3() {
+            }
+        }
+    """
+    
+    let testFileName: String = "TestFile.swift"
+    let testFileNameNonPublic: String = "TestFile-NonPublic.swift"
+    
+    override func setUp() {
+        // Work around https://bugs.swift.org/browse/SR-2866
+        try? testSource.write(to: Bundle(for: type(of: self)).bundleURL.appendingPathComponent(testFileName), atomically: true, encoding: .utf8)
+        try? testNonPublicSource.write(to: Bundle(for: type(of: self)).bundleURL.appendingPathComponent(testFileNameNonPublic), atomically: true, encoding: .utf8)
+    }
+    
+    func testSubstitutionPublicExtension() throws {
+        let url = Bundle(for: type(of: self)).bundleURL.appendingPathComponent(testFileName)
+        let sourceFile = try SyntaxTreeParser.parse(url)
+        
+        let publicRewriter = PublicModifierExtensionRewriter()
+        let result = publicRewriter.visit(sourceFile)
+        
+        var contents: String = ""
+        result.write(to: &contents)
+        
+        XCTAssertEqual(expectedTestSource, contents)
+    }
+    
+    func testSubstitutionPublicNonExtension() throws {
+        let url = Bundle(for: type(of: self)).bundleURL.appendingPathComponent(testFileNameNonPublic)
+        let sourceFile = try SyntaxTreeParser.parse(url)
+        
+        let publicRewriter = PublicModifierExtensionRewriter()
+        let result = publicRewriter.visit(sourceFile)
+        
+        var contents: String = ""
+        result.write(to: &contents)
+        print(contents)
+        XCTAssertEqual(testNonPublicSource, contents)
+    }
+    
     static var allTests = [
-        ("testExample", testExample),
+        ("testSubstitutionPublicExtension", testSubstitutionPublicExtension),
+        ("testSubstitutionPublicNonExtension", testSubstitutionPublicNonExtension),
     ]
 }
