@@ -31,11 +31,11 @@ public class PublicModifierExtensionRewriter: SyntaxRewriter {
             return node
         }
         if let publicModifier = modifiers.first(where: { $0.name.tokenKind == .publicKeyword }) {
-            var newModifiers = modifiers.removing(childAt: publicModifier.indexInParent)
             if publicModifier.indexInParent == 0 {
-                newModifiers = newModifiers.inserting(newLineTabModifier, at: 0)
+                return node.withModifiers(modifiers.replacing(childAt: 0, with: newLineTabModifier))
+            } else {
+                return node.withModifiers(modifiers.removing(childAt: publicModifier.indexInParent))
             }
-            return node.withModifiers(newModifiers)
         }
         return node
     }
