@@ -4,7 +4,6 @@ import SwiftSyntax
 
 public class PublicModifierExtensionRewriter: SyntaxRewriter {
 
-    //This is a workaround because when we replaced or removed the public modifier when it was the first modifier, it end up losing the leading trivia info and the result was an unindented decl.
     private func makeNewLineSpacesModifier(withLeadingTrivia trivia: Trivia?) -> DeclModifierSyntax {
         guard let trivia = trivia else { return SyntaxFactory.makeBlankDeclModifier() }
         
