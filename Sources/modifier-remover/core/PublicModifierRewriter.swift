@@ -8,12 +8,9 @@ public class PublicModifierExtensionRewriter: SyntaxRewriter {
     private func makeNewLineSpacesModifier(withLeadingTrivia trivia: Trivia?) -> DeclModifierSyntax {
         guard let trivia = trivia else { return SyntaxFactory.makeBlankDeclModifier() }
         
-        let spaces = String(repeating: " ", count: trivia.sourceLength.columnsAtLastLine)
-        let newLines = String(repeating: "\n", count: trivia.sourceLength.newlines)
-        
         return SyntaxFactory.makeDeclModifier(name: SyntaxFactory.makeUnknown(""),
                                               detailLeftParen: nil,
-                                              detail: SyntaxFactory.makeUnknown(newLines + spaces),
+                                              detail: SyntaxFactory.makeUnknown("").withLeadingTrivia(trivia),
                                               detailRightParen: nil)
     }
     
