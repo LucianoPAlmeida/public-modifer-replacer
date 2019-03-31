@@ -2,8 +2,8 @@
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
 [![Travis](https://img.shields.io/travis/LucianoPAlmeida/variable-injector.svg)](https://travis-ci.org/LucianoPAlmeida/variable-injector)
-[![Swift](https://img.shields.io/badge/Swift-4.2-orange.svg)](https://swift.org)
-[![Xcode](https://img.shields.io/badge/Xcode-10.0-blue.svg)](https://developer.apple.com/xcode)
+[![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://swift.org)
+[![Xcode](https://img.shields.io/badge/Xcode-10.2-blue.svg)](https://developer.apple.com/xcode)
 [![SPM](https://img.shields.io/badge/SPM-orange.svg)](https://swift.org/package-manager/)
 
 Project 423 `'public' modifier is redundant for instance method declared in a public extension` warnings.  So, no way we are going to remove it by hand 😂.
