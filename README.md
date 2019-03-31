@@ -6,7 +6,7 @@
 [![Xcode](https://img.shields.io/badge/Xcode-10.2-blue.svg)](https://developer.apple.com/xcode)
 [![SPM](https://img.shields.io/badge/SPM-orange.svg)](https://swift.org/package-manager/)
 
-Project 423 `'public' modifier is redundant for instance method declared in a public extension` warnings.  So, no way we are going to remove it by hand 😂.
+Project  has 400+ `'public' modifier is redundant for instance method declared in a public extension` warnings.  So, no way we are going to remove it by hand 😂.
 
 This is just a simple tool to remove the redundant public modifier for public extensions fixing the Xcode warnings.
 
