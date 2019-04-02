@@ -13,16 +13,14 @@ public class PublicModifierExtensionRewriter: SyntaxRewriter {
     }
 
     override public func visit(_ node: FunctionDeclSyntax) -> DeclSyntax {
-        let newLineTabModifier = makeNewLineSpacesModifier(withLeadingTrivia: node.leadingTrivia)
-        return replacePublicModifier(node: node, newLineTabModifier: newLineTabModifier)
+        return replacePublicModifier(node: node)
     }
 
     public override func visit(_ node: VariableDeclSyntax) -> DeclSyntax {
-        let newLineTabModifier = makeNewLineSpacesModifier(withLeadingTrivia: node.leadingTrivia)
-        return replacePublicModifier(node: node, newLineTabModifier: newLineTabModifier)
+        return replacePublicModifier(node: node)
     }
 
-    func replacePublicModifier<M: ModifiersSyntax>(node: M, newLineTabModifier: DeclModifierSyntax) -> M {
+    func replacePublicModifier<M: ModifiersSyntax>(node: M) -> M {
         guard let modifiers = node.modifiers else { return node }
         guard let extDecl = searchExtensionDeclParent(node: node), extDecl.isPublicExtension else {
             print("Is NOT declared on a extension, so we don't need to remove")
@@ -30,6 +28,7 @@ public class PublicModifierExtensionRewriter: SyntaxRewriter {
         }
         if let publicModifier = modifiers.first(where: { $0.name.tokenKind == .publicKeyword }) {
             if publicModifier.indexInParent == 0 {
+                let newLineTabModifier = makeNewLineSpacesModifier(withLeadingTrivia: publicModifier.leadingTrivia)
                 return node.withModifiers(modifiers.replacing(childAt: 0, with: newLineTabModifier))
             } else {
                 return node.withModifiers(modifiers.removing(childAt: publicModifier.indexInParent))
