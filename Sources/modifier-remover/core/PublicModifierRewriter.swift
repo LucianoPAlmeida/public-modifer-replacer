@@ -5,11 +5,9 @@ public class PublicModifierExtensionRewriter: SyntaxRewriter {
 
     private func makeNewLineSpacesModifier(withLeadingTrivia trivia: Trivia?) -> DeclModifierSyntax {
         guard let trivia = trivia else { return SyntaxFactory.makeBlankDeclModifier() }
-
-        return SyntaxFactory.makeDeclModifier(name: SyntaxFactory.makeUnknown(""),
-                                              detailLeftParen: nil,
-                                              detail: SyntaxFactory.makeUnknown("").withLeadingTrivia(trivia),
-                                              detailRightParen: nil)
+        return SyntaxFactory.makeBlankDeclModifier().withDetail(
+            SyntaxFactory.makeUnknown("").withLeadingTrivia(trivia)
+        )
     }
 
     override public func visit(_ node: FunctionDeclSyntax) -> DeclSyntax {
