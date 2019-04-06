@@ -14,8 +14,6 @@ func rewrite(source: Path) throws {
     var contents: String = ""
     result.write(to: &contents)
 
-    print(contents)
-
     try? contents.write(to: source.url, atomically: true, encoding: .utf8)
 }
 
