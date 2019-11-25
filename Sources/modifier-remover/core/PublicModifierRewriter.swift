@@ -21,7 +21,7 @@ public class PublicModifierExtensionRewriter: SyntaxRewriter {
     func replacePublicModifier<M: ModifiersSyntax>(node: M) -> M {
         guard let modifiers = node.modifiers else { return node }
         guard let extDecl = searchExtensionDeclParent(node: node), extDecl.isPublicExtension else {
-            print("Is NOT declared on a extension, so we don't need to remove")
+            print("Is NOT declared on a public extension, so we don't need to remove")
             return node
         }
         if let publicModifier = modifiers.first(where: { $0.name.tokenKind == .publicKeyword }) {
