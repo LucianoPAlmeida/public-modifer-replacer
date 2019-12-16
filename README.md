@@ -1,7 +1,7 @@
 # Public Modifier Remover
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
-[![Travis](https://img.shields.io/travis/LucianoPAlmeida/variable-injector.svg)](https://travis-ci.org/LucianoPAlmeida/variable-injector)
+[![Travis](https://img.shields.io/travis/LucianoPAlmeida/public-modifer-replacer.svg)](https://travis-ci.org/LucianoPAlmeida/public-modifer-replacer)
 [![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://swift.org)
 [![Xcode](https://img.shields.io/badge/Xcode-10.2-blue.svg)](https://developer.apple.com/xcode)
 [![SPM](https://img.shields.io/badge/SPM-orange.svg)](https://swift.org/package-manager/)
