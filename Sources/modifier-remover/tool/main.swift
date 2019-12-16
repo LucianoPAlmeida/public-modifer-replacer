@@ -5,7 +5,7 @@ import Path
 import modifier_remover_core
 
 func rewrite(source: Path) throws {
-    let sourceFile = try SyntaxTreeParser.parse(source.url)
+    let sourceFile = try SyntaxParser.parse(source.url)
 
     let rewriter = PublicModifierExtensionRewriter()
 
