@@ -62,7 +62,7 @@ final class modifier_removerTests: XCTestCase {
     
     func testSubstitutionPublicExtension() throws {
         let url = Bundle(for: type(of: self)).bundleURL.appendingPathComponent(testFileName)
-        let sourceFile = try SyntaxTreeParser.parse(url)
+        let sourceFile = try SyntaxParser.parse(url)
         
         let publicRewriter = PublicModifierExtensionRewriter()
         let result = publicRewriter.visit(sourceFile)
@@ -75,7 +75,7 @@ final class modifier_removerTests: XCTestCase {
     
     func testSubstitutionPublicNonExtension() throws {
         let url = Bundle(for: type(of: self)).bundleURL.appendingPathComponent(testFileNameNonPublic)
-        let sourceFile = try SyntaxTreeParser.parse(url)
+        let sourceFile = try SyntaxParser.parse(url)
         
         let publicRewriter = PublicModifierExtensionRewriter()
         let result = publicRewriter.visit(sourceFile)

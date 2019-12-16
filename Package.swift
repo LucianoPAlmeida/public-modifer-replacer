@@ -13,7 +13,7 @@ let package = Package(
         
         ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50000.0")),
+        .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50100.0")),
         .package(url: "https://github.com/mxcl/Path.swift.git", .exact("0.16.3"))
     ],
     targets: [
