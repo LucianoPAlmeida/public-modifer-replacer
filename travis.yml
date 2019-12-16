@@ -3,5 +3,3 @@ osx_image: xcode11.2
 script:
     - swift build
     - swift test
-after_success:
-    - bash <(curl -s https://codecov.io/bash) -J 'modifier-remover'
