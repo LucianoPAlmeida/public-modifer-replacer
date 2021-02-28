@@ -15,8 +15,8 @@ func recursiveFiles(withExtension ext: String, at path: Path) throws -> [Path] {
         return []
     } else if path.isDirectory {
         var files: [Path] = []
-        for entry in try path.ls() {
-            let list = try recursiveFiles(withExtension: ext, at: entry.path)
+        for entry in path.ls() {
+            let list = try recursiveFiles(withExtension: ext, at: entry.realpath())
             files.append(contentsOf: list)
         }
         return files

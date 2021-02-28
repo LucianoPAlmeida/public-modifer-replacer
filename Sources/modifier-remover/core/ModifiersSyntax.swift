@@ -7,7 +7,7 @@
 
 import SwiftSyntax
 
-protocol ModifiersSyntax: Syntax {
+protocol ModifiersSyntax: SyntaxProtocol {
     var modifiers: ModifierListSyntax? { get }
     func withModifiers(
         _ newChild: ModifierListSyntax?) -> Self
